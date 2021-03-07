@@ -11,6 +11,7 @@ jobs:
       - run: npm run clean-dist
       - save_cache:
           key: 'modulesAndDist'
+          when: on_sucess
           paths:
             - /node_modules
             - /dist
@@ -20,8 +21,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - 'modulesAndDist'
+          key: 'modulesAndDist'
       - run: npm run lint
   test:
     docker:
@@ -29,8 +29,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - 'modulesAndDist'
+          key: 'modulesAndDist'
       - run: npm run test
   coverage:
     docker:
@@ -38,8 +37,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - 'modulesAndDist'
+          key: 'modulesAndDist'
       - run: npm run test:cover
   audit:
     docker:
@@ -47,22 +45,21 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - 'modulesAndDist'
+          key: 'modulesAndDist'
       - run: npm audit
 workflows:
   test-and-deploy:
     jobs:
       - build
       - lint:
-          requires:
+        - requires:
           - build
       - test:
-          requires:
+        - requires:
           - build
       - coverage:
-          requires:
+        - requires:
           - build
       - audit:
-          requires:
+        - requires:
           - build
