@@ -16,38 +16,38 @@ jobs:
             - /dist
   lint:
     docker:
-      - image: circleci/node:13.8.0	
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
-        - keys:
+          keys:
             - 'modulesAndDist'
       - run: npm run lint
   test:
     docker:
-      - image: circleci/node:13.8.0	
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
-        - keys:
+          keys:
             - 'modulesAndDist'
       - run: npm run test
   coverage:
     docker:
-      - image: circleci/node:13.8.0	
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
-        - keys:
+          keys:
             - 'modulesAndDist'
       - run: npm run test:cover
   audit:
     docker:
-      - image: circleci/node:13.8.0	
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
-        - keys:
+          keys:
             - 'modulesAndDist'
       - run: npm audit
 workflows:
@@ -55,14 +55,14 @@ workflows:
     jobs:
       - build
       - lint:
-        - requires:
+          requires:
           - build
       - test:
-        - requires:
+          requires:
           - build
       - coverage:
-        - requires:
+          requires:
           - build
       - audit:
-        - requires:
+          requires:
           - build
