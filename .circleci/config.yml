@@ -10,7 +10,7 @@ jobs:
       - run: npm install
       - run: npm run clean-dist
       - save_cache:
-          key: 'modulesAndDist2
+          key: 'modulesAndDist2'
           paths:
             - node_modules
             - dist
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'modulesAndDist2
+          key: 'modulesAndDist2'
       - run: npm run lint
   test:
     docker:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'modulesAndDist2
+          key: 'modulesAndDist2'
       - run: npm run test
   coverage:
     docker:
@@ -36,7 +36,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 'modulesAndDist2
+          key: 'modulesAndDist2'
       - run: npm run test:cover
   audit:
     docker:
