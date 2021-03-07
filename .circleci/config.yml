@@ -12,8 +12,8 @@ jobs:
       - save_cache:
           key: 'modulesAndDist'
           paths:
-            - /node_modules
-            - /dist
+            - node_modules
+            - dist
   lint:
     docker:
       - image: circleci/node:13.8.0
